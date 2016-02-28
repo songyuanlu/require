@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+    <head>
+        <title>requirejs入门（三）</title>
+        <meta charset="utf-8">
+        <style type="text/css">
+            p {
+                width: 200px;
+                background: gray;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            合并js<br>
+            node r.js -o baseUrl=js name=main out=built.js<br>
+            -o         表示优化，该参数是固定的，必选。<br>
+            baseUrl  指存放模块的根目录，这里是r4/js，因为cd到r4中了，只需设置为js。可选，如果没有设置将从r4中查找main.js。<br>
+            name     模块的入口文件，这里设置成“main”，那么r.js会从baseUrl+main去查找。这里实际是r4/js/main.js。r.js会分析main.js，找出其所依赖的所有其它模块，然后合并压缩。<br>
+            out        指合并压缩后输出的文件路径，这里直接是built.js，那么将输出到根目录r4下。<br>
+        </div>
+        <br>
+        <br>
+        <div>
+            1，excludeShallow 合并时将排除该文件<br>
+            node r.js -o baseUrl=js name=main out=built.js excludeShallow=selector
+        </div>
+        <br>
+        <br>
+        <div>
+            2，optimize (none/uglify/closure)  指定是否压缩，默认为uglify<br>
+            不传该参数时r.js默认以UglifyJS压缩。设置为none则不会压缩，仅合并，这在开发阶段是很用用的。<br>
+            node r.js -o baseUrl=js name=main out=built.js optimize=none
+        </div>
+        <script data-main="built" src="require.js"></script>
+    </body>
+</html>
